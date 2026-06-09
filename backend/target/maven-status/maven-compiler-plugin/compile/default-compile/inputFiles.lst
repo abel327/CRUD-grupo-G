@@ -1,0 +1,14 @@
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/FeiraApiApplication.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/controller/PedidoController.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/controller/StatusPedidoController.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/domain/Pedido.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/domain/StatusPedido.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/dto/PedidoDTO.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/dto/StatusPedidoDTO.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/exception/GlobalExceptionHandler.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/exception/RecursoNaoEncontradoException.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/exception/RegraNegocioException.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/repository/PedidoRepository.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/repository/StatusPedidoRepository.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/service/PedidoService.java
+/Users/feliperodriguesdemelo/Desktop/CRUD-grupo-G/backend/src/main/java/br/com/feira/api/service/StatusPedidoService.java

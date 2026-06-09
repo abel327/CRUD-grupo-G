@@ -1,0 +1,86 @@
+<main class="container">
+  <header>
+    <h1>{{ title }}</h1>
+    <p>Integração Inicial - API rodando perfeitamente! 🚀</p>
+  </header>
+
+  <!-- Notificações -->
+  <div *ngIf="mensagemSucesso" class="alert alert-success">
+    {{ mensagemSucesso }}
+  </div>
+  <div *ngIf="mensagemErro" class="alert alert-error">
+    {{ mensagemErro }}
+  </div>
+
+  <section class="dashboard">
+    <!-- Formulário de Criação -->
+    <div class="card form-card">
+      <h2>Criar Novo Pedido</h2>
+      <form (ngSubmit)="criarPedido()">
+        <div class="form-group">
+          <label for="nome">Nome do Pedido</label>
+          <input 
+            type="text" 
+            id="nome" 
+            name="nome" 
+            [(ngModel)]="novoPedido.nome" 
+            placeholder="Ex: Frutas, Legumes..."
+            required
+            minlength="3">
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status do Pedido</label>
+          <select 
+            id="status" 
+            name="statusPedidoId" 
+            [(ngModel)]="novoPedido.statusPedidoId" 
+            required>
+            <option [ngValue]="undefined" disabled selected>Selecione um status...</option>
+            <option *ngFor="let status of statusList" [ngValue]="status.id">
+              {{ status.nome }}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" [disabled]="isSubmitting" class="btn-primary">
+          {{ isSubmitting ? 'Salvando...' : 'Adicionar Pedido' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Lista de Pedidos -->
+    <div class="card">
+      <h2>Pedidos Cadastrados</h2>
+      <ul *ngIf="pedidos.length > 0; else noPedidos">
+        <li *ngFor="let pedido of pedidos">
+          <div class="pedido-info">
+            <strong>{{ pedido.nome }}</strong>
+          </div>
+          
+          <div class="pedido-actions">
+            <!-- Modo de Visualização -->
+            <ng-container *ngIf="editandoId !== pedido.id">
+              <span class="badge">{{ pedido.statusPedidoNome }}</span>
+              <button class="btn-icon" (click)="iniciarEdicao(pedido)" title="Editar Status">✏️</button>
+            </ng-container>
+
+            <!-- Modo de Edição -->
+            <ng-container *ngIf="editandoId === pedido.id">
+              <select [(ngModel)]="statusEdicaoId" class="select-sm">
+                <option *ngFor="let status of statusList" [ngValue]="status.id">
+                  {{ status.nome }}
+                </option>
+              </select>
+              <button class="btn-icon btn-save" (click)="salvarEdicao(pedido)" title="Salvar">✅</button>
+              <button class="btn-icon btn-cancel" (click)="cancelarEdicao()" title="Cancelar">❌</button>
+            </ng-container>
+          </div>
+        </li>
+      </ul>
+      <ng-template #noPedidos>
+        <p class="empty-state">Nenhum pedido encontrado. Crie o primeiro ao lado!</p>
+      </ng-template>
+    </div>
+  </section>
+</main>
