@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'http://localhost:8080/api'
+  apiUrl: 'https://crud-grupo-g-production.up.railway.app/api'
 };
