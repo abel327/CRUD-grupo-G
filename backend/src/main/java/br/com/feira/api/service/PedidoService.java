@@ -1,11 +1,15 @@
 package br.com.feira.api.service;
 
+import br.com.feira.api.domain.ItemPedido;
 import br.com.feira.api.domain.Pedido;
+import br.com.feira.api.domain.Produto;
 import br.com.feira.api.domain.StatusPedido;
+import br.com.feira.api.dto.ItemPedidoDTO;
 import br.com.feira.api.dto.PedidoDTO;
 import br.com.feira.api.exception.RecursoNaoEncontradoException;
 import br.com.feira.api.exception.RegraNegocioException;
 import br.com.feira.api.repository.PedidoRepository;
+import br.com.feira.api.repository.ProdutoRepository;
 import br.com.feira.api.repository.StatusPedidoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +22,12 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final StatusPedidoRepository statusPedidoRepository;
+    private final ProdutoRepository produtoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository, StatusPedidoRepository statusPedidoRepository) {
+    public PedidoService(PedidoRepository pedidoRepository, StatusPedidoRepository statusPedidoRepository, ProdutoRepository produtoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.statusPedidoRepository = statusPedidoRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     @Transactional(readOnly = true)
@@ -40,10 +46,6 @@ public class PedidoService {
 
     @Transactional
     public PedidoDTO salvar(PedidoDTO dto) {
-        if (pedidoRepository.existsByNomeIgnoreCase(dto.getNome())) {
-            throw new RegraNegocioException("Já existe um Pedido com este nome.");
-        }
-
         Pedido pedido = new Pedido();
         copiarDTOParaEntidade(dto, pedido);
 
@@ -55,10 +57,6 @@ public class PedidoService {
     public PedidoDTO atualizar(Long id, PedidoDTO dto) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Pedido", id));
-
-        if (!pedido.getNome().equalsIgnoreCase(dto.getNome()) && pedidoRepository.existsByNomeIgnoreCase(dto.getNome())) {
-            throw new RegraNegocioException("Já existe um Pedido com este nome.");
-        }
 
         copiarDTOParaEntidade(dto, pedido);
 
@@ -80,14 +78,45 @@ public class PedidoService {
         StatusPedido statusPedido = statusPedidoRepository.findById(dto.getStatusPedidoId())
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Status de Pedido", dto.getStatusPedidoId()));
         entidade.setStatusPedido(statusPedido);
+
+        // Limpa itens antigos se for atualização
+        entidade.getItens().clear();
+        
+        double valorTotal = 0.0;
+        
+        if (dto.getItens() != null) {
+            for (ItemPedidoDTO itemDto : dto.getItens()) {
+                Produto produto = produtoRepository.findById(itemDto.getProdutoId())
+                        .orElseThrow(() -> new RecursoNaoEncontradoException("Produto", itemDto.getProdutoId()));
+                
+                ItemPedido item = new ItemPedido(entidade, produto, itemDto.getQuantidade(), produto.getPreco());
+                entidade.getItens().add(item);
+                valorTotal += (produto.getPreco() * itemDto.getQuantidade());
+            }
+        }
+        
+        entidade.setValorTotal(valorTotal);
     }
 
     private PedidoDTO converterParaDTO(Pedido entity) {
-        return new PedidoDTO(
-                entity.getId(),
-                entity.getNome(),
-                entity.getStatusPedido().getId(),
-                entity.getStatusPedido().getNome()
-        );
+        PedidoDTO dto = new PedidoDTO();
+        dto.setId(entity.getId());
+        dto.setNome(entity.getNome());
+        dto.setStatusPedidoId(entity.getStatusPedido().getId());
+        dto.setStatusPedidoNome(entity.getStatusPedido().getNome());
+        dto.setValorTotal(entity.getValorTotal());
+        
+        List<ItemPedidoDTO> itensDto = entity.getItens().stream().map(item -> {
+            ItemPedidoDTO itemDto = new ItemPedidoDTO();
+            itemDto.setId(item.getId());
+            itemDto.setProdutoId(item.getProduto().getId());
+            itemDto.setProdutoNome(item.getProduto().getNome());
+            itemDto.setQuantidade(item.getQuantidade());
+            itemDto.setPrecoUnitario(item.getPrecoUnitario());
+            return itemDto;
+        }).collect(Collectors.toList());
+        
+        dto.setItens(itensDto);
+        return dto;
     }
 }

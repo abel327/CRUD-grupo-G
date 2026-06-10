@@ -3,6 +3,8 @@ package br.com.feira.api.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.List;
+import java.util.ArrayList;
 
 public class PedidoDTO {
 
@@ -17,14 +19,11 @@ public class PedidoDTO {
 
     private String statusPedidoNome;
 
-    public PedidoDTO() {}
+    private List<ItemPedidoDTO> itens = new ArrayList<>();
 
-    public PedidoDTO(Long id, String nome, Long statusPedidoId, String statusPedidoNome) {
-        this.id = id;
-        this.nome = nome;
-        this.statusPedidoId = statusPedidoId;
-        this.statusPedidoNome = statusPedidoNome;
-    }
+    private Double valorTotal;
+
+    public PedidoDTO() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -37,4 +36,10 @@ public class PedidoDTO {
 
     public String getStatusPedidoNome() { return statusPedidoNome; }
     public void setStatusPedidoNome(String statusPedidoNome) { this.statusPedidoNome = statusPedidoNome; }
+
+    public List<ItemPedidoDTO> getItens() { return itens; }
+    public void setItens(List<ItemPedidoDTO> itens) { this.itens = itens; }
+
+    public Double getValorTotal() { return valorTotal; }
+    public void setValorTotal(Double valorTotal) { this.valorTotal = valorTotal; }
 }

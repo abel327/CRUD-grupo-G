@@ -3,6 +3,8 @@ package br.com.feira.api.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -21,6 +23,12 @@ public class Pedido {
     @JoinColumn(name = "status_pedido_id", nullable = false)
     private StatusPedido statusPedido;
 
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemPedido> itens = new ArrayList<>();
+
+    @Column(name = "valor_total")
+    private Double valorTotal = 0.0;
+
     public Pedido() {}
 
     public Pedido(String nome, StatusPedido statusPedido) {
@@ -36,4 +44,20 @@ public class Pedido {
 
     public StatusPedido getStatusPedido() { return statusPedido; }
     public void setStatusPedido(StatusPedido statusPedido) { this.statusPedido = statusPedido; }
+
+    public List<ItemPedido> getItens() { return itens; }
+    public void setItens(List<ItemPedido> itens) { this.itens = itens; }
+    
+    public void addItem(ItemPedido item) {
+        itens.add(item);
+        item.setPedido(this);
+    }
+    
+    public void removeItem(ItemPedido item) {
+        itens.remove(item);
+        item.setPedido(null);
+    }
+
+    public Double getValorTotal() { return valorTotal; }
+    public void setValorTotal(Double valorTotal) { this.valorTotal = valorTotal; }
 }

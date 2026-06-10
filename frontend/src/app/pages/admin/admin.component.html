@@ -1,0 +1,76 @@
+<div class="min-h-screen bg-surface dark:bg-surface-dim pt-20">
+  <div class="max-w-[800px] mx-auto px-gutter py-xl">
+    
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-xl">
+      <div>
+        <h1 class="text-display-sm text-primary dark:text-primary-fixed font-extrabold tracking-tight mb-sm">Administração</h1>
+        <p class="text-body-lg text-on-surface-variant">Gerencie os tipos de Status de Pedido disponíveis no sistema.</p>
+      </div>
+      <button (click)="iniciarCriacao()" class="flex items-center gap-2 px-5 py-3 bg-primary text-on-primary rounded-full hover:bg-primary/90 font-label-lg font-bold transition-colors shadow-md">
+        <span class="material-symbols-outlined">add</span>
+        Novo Status
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex justify-center items-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+    </div>
+
+    <!-- Simple Form Toggle using ngIf -->
+    <div *ngIf="showForm" class="bg-surface-container-low dark:bg-surface-container rounded-2xl p-6 border-l-4 border-primary shadow-sm mb-8">
+      <h2 class="text-title-lg font-bold text-on-surface mb-4">
+        {{ isEditing ? 'Editando Status' : 'Criar Novo Status' }}
+      </h2>
+      <div class="flex flex-col md:flex-row gap-4 items-end">
+        <div class="flex-1 w-full">
+          <label class="text-label-md font-bold text-on-surface-variant mb-1 block">Nome do Status</label>
+          <input type="text" [(ngModel)]="formStatus.nome" placeholder="Ex: Saiu para Entrega" class="w-full px-4 py-2 bg-surface dark:bg-surface-container-highest border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-on-surface">
+        </div>
+        <div class="flex gap-2 w-full md:w-auto mt-4 md:mt-0">
+          <button (click)="cancelarForm()" class="flex-1 md:flex-none px-4 py-2 rounded-lg font-label-md font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors border border-outline-variant">
+            Cancelar
+          </button>
+          <button (click)="salvar()" [disabled]="isSubmitting" class="flex-1 md:flex-none px-6 py-2 rounded-lg font-label-md font-bold bg-primary text-on-primary hover:bg-primary/90 transition-colors disabled:opacity-50">
+            {{ isSubmitting ? 'Salvando...' : 'Salvar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div *ngIf="!loading" class="bg-surface-container-lowest dark:bg-surface-container-low rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-surface-container-low dark:bg-surface-container border-b border-outline-variant/50">
+            <th class="px-6 py-4 text-label-md font-bold text-on-surface-variant uppercase tracking-wider w-20">ID</th>
+            <th class="px-6 py-4 text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Nome</th>
+            <th class="px-6 py-4 text-label-md font-bold text-on-surface-variant uppercase tracking-wider text-right w-40">Ações</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/30">
+          <tr *ngFor="let status of statusList" class="hover:bg-surface-container-lowest transition-colors">
+            <td class="px-6 py-4 text-body-md font-mono text-on-surface-variant">{{ status.id }}</td>
+            <td class="px-6 py-4 text-body-lg font-bold text-on-surface">{{ status.nome }}</td>
+            <td class="px-6 py-4 flex justify-end gap-2">
+              <button (click)="iniciarEdicao(status)" class="p-2 text-primary hover:bg-primary-container/50 rounded-full transition-colors" title="Editar">
+                <span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+              </button>
+              <button (click)="excluir(status.id)" class="p-2 text-error hover:bg-error-container/50 rounded-full transition-colors" title="Excluir">
+                <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+              </button>
+            </td>
+          </tr>
+          
+          <tr *ngIf="statusList.length === 0">
+            <td colspan="3" class="px-6 py-8 text-center text-on-surface-variant">
+              Nenhum status cadastrado.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

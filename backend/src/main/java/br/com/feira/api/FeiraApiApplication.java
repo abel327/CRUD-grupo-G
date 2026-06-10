@@ -25,11 +25,11 @@ public class FeiraApiApplication {
         return args -> {
             if (statusPedidoRepository.count() == 0) {
                 statusPedidoRepository.saveAll(Arrays.asList(
-                    new StatusPedido("Pendente"),
-                    new StatusPedido("Em Andamento"),
-                    new StatusPedido("Concluído"),
-                    new StatusPedido("Cancelado")
-                ));
+                        new StatusPedido("Recebido"),
+                        new StatusPedido("Preparando"),
+                        new StatusPedido("Pronto para Retirada"),
+                        new StatusPedido("A Caminho"),
+                        new StatusPedido("Entregue")));
             }
         };
     }

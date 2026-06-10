@@ -1,0 +1,83 @@
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-gutter py-xl flex flex-col gap-xl">
+<!-- Vendor Header -->
+<section class="relative w-full rounded-xl overflow-hidden shadow-sm bg-surface-container-lowest" *ngIf="barraca">
+<div class="h-48 md:h-64 w-full relative">
+<img class="w-full h-full object-cover" [src]="barraca.imageUrl" />
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+</div>
+<div class="p-lg -mt-16 relative flex flex-col md:flex-row items-end md:items-center justify-between gap-md">
+<div class="flex items-end gap-md">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-surface-container-lowest overflow-hidden shadow-lg bg-white relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmvu454-GWujPucS7muMG__KJUQK3XkiW7J240ehOrwfH15sJBFH6eRICkpGYt9u9kknKEpsVJnobWXsJwXrHcDTEProsb6Q4eEmaI3-__JPFmBtrTAJvX7_s7wVui3DA5sqi0QJ-6JTD6JKi88on2EI1vhhlRV2mk0olEBwHpIgfd75PsdV1Msix92sNm4DtEc34V415W5HHUQhwgxEmiOIiJoNahl80nxJUQtOpEROZzCL0kZYgvGS6KysM-wdQqzCK_1bJpjPWu"/>
+<div class="absolute bottom-1 right-1 bg-primary rounded-full p-0.5 border-2 border-white">
+<span class="material-symbols-outlined text-white text-[16px] filled-icon">check_circle</span>
+</div>
+</div>
+<div class="pb-2 text-white">
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg leading-none">{{barraca.nome}}</h1>
+<p class="font-body-md text-body-md opacity-90">Frutas Selecionadas - Desde 1994</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-xs pb-2">
+<div class="flex items-center gap-xs bg-secondary-container text-on-secondary-container px-md py-xs rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[18px] filled-icon">star</span>
+<span class="font-label-md text-label-md">{{barraca.avaliacao | number:'1.1-1'}} (124 reviews)</span>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md text-right md:max-w-xs bg-white/80 backdrop-blur-sm p-sm rounded-lg">
+                        "{{barraca.descricao}}"
+                    </p>
+</div>
+</div>
+</section>
+
+<div class="flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex items-center gap-sm overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar">
+<button class="bg-primary text-on-primary px-lg py-sm rounded-full font-label-md text-label-md transition-all active:scale-95 shadow-md">Todos</button>
+</div>
+<div class="relative w-full md:w-80 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-lowest border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-xl py-3 pl-12 pr-4 transition-all" placeholder="Buscar na barraca..." type="text"/>
+</div>
+</div>
+
+<div class="flex flex-col lg:flex-row gap-xl items-start">
+<!-- Product Grid -->
+<div class="flex-grow grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-lg w-full">
+<div *ngFor="let p of produtos" class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden flex flex-col">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" [src]="p.imageUrl" />
+<span *ngIf="p.emOferta" class="absolute top-2 left-2 bg-secondary text-white px-3 py-1 rounded-full text-label-md font-label-md shadow-sm">Oferta</span>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<h3 class="font-headline-md text-headline-md text-on-surface">{{p.nome}}</h3>
+<p class="text-on-surface-variant text-body-md mb-md">{{p.descricao}}</p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-outline text-label-md font-label-md uppercase tracking-wider">Preço p/ {{p.unidade}}</span>
+<span class="font-price-display text-price-display text-primary">R$ {{p.preco | number:'1.2-2'}}</span>
+</div>
+</div>
+<button (click)="adicionarAoCarrinho(p)" class="mt-md w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-sm hover:bg-primary-container transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            Adicionar
+                        </button>
+</div>
+</div>
+</div>
+
+<!-- Cart Sidebar (Sticky) -->
+<aside class="w-full lg:w-96 sticky top-28 lg:block hidden">
+<div class="bg-surface-container-low rounded-xl p-lg flex flex-col gap-md shadow-sm border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-primary">Seu Carrinho</h2>
+</div>
+<p class="text-sm text-outline-variant mb-2">Para ver o carrinho atualizado ou finalizar a compra, clique no ícone do carrinho no menu principal.</p>
+<button [routerLink]="['/checkout']" class="w-full bg-secondary-container text-on-secondary-container font-label-md text-label-md py-4 rounded-xl shadow-md flex items-center justify-center gap-sm hover:bg-secondary transition-all hover:text-white active:scale-95 mt-md">
+                        Ir para Finalizar Pedido
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</aside>
+
+</div>
+</main>

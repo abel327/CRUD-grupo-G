@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PedidoService } from './services/pedido.service';
 import { Pedido } from './models/pedido.model';
@@ -10,7 +10,7 @@ import { StatusPedido } from './models/status-pedido.model';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

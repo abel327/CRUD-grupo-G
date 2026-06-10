@@ -1,86 +1,68 @@
-<main class="container">
-  <header>
-    <h1>{{ title }}</h1>
-    <p>Integração Inicial - API rodando perfeitamente! 🚀</p>
-  </header>
-
-  <!-- Notificações -->
-  <div *ngIf="mensagemSucesso" class="alert alert-success">
-    {{ mensagemSucesso }}
-  </div>
-  <div *ngIf="mensagemErro" class="alert alert-error">
-    {{ mensagemErro }}
-  </div>
-
-  <section class="dashboard">
-    <!-- Formulário de Criação -->
-    <div class="card form-card">
-      <h2>Criar Novo Pedido</h2>
-      <form (ngSubmit)="criarPedido()">
-        <div class="form-group">
-          <label for="nome">Nome do Pedido</label>
-          <input 
-            type="text" 
-            id="nome" 
-            name="nome" 
-            [(ngModel)]="novoPedido.nome" 
-            placeholder="Ex: Frutas, Legumes..."
-            required
-            minlength="3">
-        </div>
-
-        <div class="form-group">
-          <label for="status">Status do Pedido</label>
-          <select 
-            id="status" 
-            name="statusPedidoId" 
-            [(ngModel)]="novoPedido.statusPedidoId" 
-            required>
-            <option [ngValue]="undefined" disabled selected>Selecione um status...</option>
-            <option *ngFor="let status of statusList" [ngValue]="status.id">
-              {{ status.nome }}
-            </option>
-          </select>
-        </div>
-
-        <button type="submit" [disabled]="isSubmitting" class="btn-primary">
-          {{ isSubmitting ? 'Salvando...' : 'Adicionar Pedido' }}
-        </button>
-      </form>
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-dim shadow-sm docked w-full top-0 sticky z-50">
+    <div class="flex justify-between items-center px-gutter py-md max-w-[1280px] mx-auto w-full">
+    <div class="flex items-center gap-xl">
+    <span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-extrabold tracking-tight">FeiraLivre</span>
+    <div class="hidden md:flex gap-lg">
+    <a class="font-body-md text-body-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-1" routerLink="/">Marketplace</a>
+    <a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 py-1" href="#">Vendors</a>
+    <a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 py-1" href="#">Our Story</a>
     </div>
-
-    <!-- Lista de Pedidos -->
-    <div class="card">
-      <h2>Pedidos Cadastrados</h2>
-      <ul *ngIf="pedidos.length > 0; else noPedidos">
-        <li *ngFor="let pedido of pedidos">
-          <div class="pedido-info">
-            <strong>{{ pedido.nome }}</strong>
-          </div>
-          
-          <div class="pedido-actions">
-            <!-- Modo de Visualização -->
-            <ng-container *ngIf="editandoId !== pedido.id">
-              <span class="badge">{{ pedido.statusPedidoNome }}</span>
-              <button class="btn-icon" (click)="iniciarEdicao(pedido)" title="Editar Status">✏️</button>
-            </ng-container>
-
-            <!-- Modo de Edição -->
-            <ng-container *ngIf="editandoId === pedido.id">
-              <select [(ngModel)]="statusEdicaoId" class="select-sm">
-                <option *ngFor="let status of statusList" [ngValue]="status.id">
-                  {{ status.nome }}
-                </option>
-              </select>
-              <button class="btn-icon btn-save" (click)="salvarEdicao(pedido)" title="Salvar">✅</button>
-              <button class="btn-icon btn-cancel" (click)="cancelarEdicao()" title="Cancelar">❌</button>
-            </ng-container>
-          </div>
-        </li>
-      </ul>
-      <ng-template #noPedidos>
-        <p class="empty-state">Nenhum pedido encontrado. Crie o primeiro ao lado!</p>
-      </ng-template>
     </div>
-  </section>
-</main>
+    <div class="flex items-center gap-md">
+    <button routerLink="/meus-pedidos" class="material-symbols-outlined text-primary dark:text-primary-fixed p-2 hover:bg-surface-variant/50 transition-colors duration-200 rounded-full active:scale-95 transition-transform" data-icon="receipt_long" title="Meus Pedidos">receipt_long</button>
+    <button routerLink="/checkout" class="material-symbols-outlined text-primary dark:text-primary-fixed p-2 hover:bg-surface-variant/50 transition-colors duration-200 rounded-full active:scale-95 transition-transform" data-icon="shopping_cart">shopping_cart</button>
+    <button routerLink="/painel-feirante" class="material-symbols-outlined text-primary dark:text-primary-fixed p-2 hover:bg-surface-variant/50 transition-colors duration-200 rounded-full active:scale-95 transition-transform" data-icon="account_circle">account_circle</button>
+    </div>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 md:hidden bg-surface-container-lowest dark:bg-surface-container-low shadow-[0px_-4px_20px_rgba(45,90,39,0.05)] rounded-t-xl">
+    <a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 scale-110 transition-all" routerLink="/">
+    <span class="material-symbols-outlined" data-icon="home">home</span>
+    <span class="font-label-md text-label-md">Home</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" href="#">
+    <span class="material-symbols-outlined" data-icon="search">search</span>
+    <span class="font-label-md text-label-md">Search</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" routerLink="/checkout">
+    <span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+    <span class="font-label-md text-label-md">Basket</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" routerLink="/meus-pedidos">
+    <span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+    <span class="font-label-md text-label-md">Pedidos</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary transition-all" routerLink="/painel-feirante">
+    <span class="material-symbols-outlined" data-icon="person">person</span>
+    <span class="font-label-md text-label-md">Profile</span>
+    </a>
+</nav>
+
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-highest w-full mt-xl">
+    <div class="w-full max-w-[1280px] mx-auto px-gutter py-xl flex flex-col md:flex-row justify-between items-center gap-lg">
+    <div class="flex flex-col items-center md:items-start gap-sm">
+    <span class="font-headline-lg text-headline-lg text-primary font-extrabold tracking-tight">FeiraLivre</span>
+    <p class="font-body-md text-body-md text-on-surface-variant text-center md:text-left">© 2024 FeiraLivre. Freshness delivered from local hands.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-lg">
+    <a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+    <a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+    <a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100 font-bold" href="#">Become a Vendor</a>
+    <a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100" href="#">Help Center</a>
+    </div>
+    <div class="flex gap-md">
+    <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary-fixed transition-colors cursor-pointer">
+    <span class="material-symbols-outlined text-primary">language</span>
+    </div>
+    <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary-fixed transition-colors cursor-pointer">
+    <span class="material-symbols-outlined text-primary">share</span>
+    </div>
+    </div>
+    </div>
+</footer>

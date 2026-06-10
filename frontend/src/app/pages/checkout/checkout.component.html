@@ -1,0 +1,113 @@
+<main class="max-w-[1280px] mx-auto px-gutter py-xl">
+<div class="flex flex-col lg:grid lg:grid-cols-12 gap-xl">
+<!-- Left Column: Checkout Forms -->
+<div class="lg:col-span-7 space-y-xl">
+<section>
+<h2 class="font-headline-lg text-headline-lg mb-lg">Checkout</h2>
+<!-- Delivery Options -->
+<div class="bg-surface-container-lowest rounded-xl p-lg organic-shadow space-y-md">
+<div class="flex items-center gap-sm mb-base">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<h3 class="font-headline-md text-headline-md">Opções de Entrega</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<label class="cursor-pointer group">
+<input checked="" class="hidden peer" name="delivery" type="radio"/>
+<div class="p-md border border-outline-variant rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 transition-all card-hover h-full flex flex-col justify-between">
+<span class="font-label-md text-label-md block mb-xs">Retirada</span>
+<span class="text-on-surface-variant text-sm block">Na Feira Livre</span>
+<span class="font-price-display text-price-display text-primary mt-sm">Grátis</span>
+</div>
+</label>
+</div>
+</div>
+</section>
+<!-- Shipping Address -->
+<section class="bg-surface-container-lowest rounded-xl p-lg organic-shadow space-y-md">
+<div class="flex items-center gap-sm mb-base">
+<span class="material-symbols-outlined text-primary">person</span>
+<h3 class="font-headline-md text-headline-md">Seus Dados</h3>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Seu Nome para o Pedido</label>
+<input [(ngModel)]="nomeCliente" class="w-full bg-surface-container-low border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-md transition-all" placeholder="Como devemos chamar seu pedido?" type="text"/>
+</div>
+</div>
+</section>
+<!-- Payment Method -->
+<section class="bg-surface-container-lowest rounded-xl p-lg organic-shadow space-y-md">
+<div class="flex items-center gap-sm mb-base">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h3 class="font-headline-md text-headline-md">Forma de Pagamento (Pague na Retirada)</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<label class="cursor-pointer">
+<input checked="" class="hidden peer" name="payment" type="radio"/>
+<div class="p-md border border-outline-variant rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 transition-all text-center">
+<span class="material-symbols-outlined text-3xl block mb-xs">qr_code_2</span>
+<span class="font-label-md text-label-md">Pix</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="hidden peer" name="payment" type="radio"/>
+<div class="p-md border border-outline-variant rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 transition-all text-center">
+<span class="material-symbols-outlined text-3xl block mb-xs">credit_card</span>
+<span class="font-label-md text-label-md">Cartão</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="hidden peer" name="payment" type="radio"/>
+<div class="p-md border border-outline-variant rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 transition-all text-center">
+<span class="material-symbols-outlined text-3xl block mb-xs">payments</span>
+<span class="font-label-md text-label-md">Dinheiro</span>
+</div>
+</label>
+</div>
+</section>
+</div>
+
+<!-- Right Column: Order Summary -->
+<aside class="lg:col-span-5">
+<div class="bg-surface-container-lowest rounded-xl p-lg organic-shadow sticky top-32 space-y-lg">
+<h3 class="font-headline-md text-headline-md">Resumo do Pedido</h3>
+<!-- Basket Items -->
+<div class="space-y-md max-h-[400px] overflow-y-auto pr-sm">
+<div *ngIf="itens.length === 0" class="text-on-surface-variant">Seu carrinho está vazio.</div>
+
+<div *ngFor="let item of itens" class="flex items-center gap-md">
+<img [src]="item.produto.imageUrl" class="w-16 h-16 object-cover rounded-lg" />
+<div class="flex-grow">
+<p class="font-label-md text-label-md">{{item.produto.nome}} ({{item.quantidade}}x)</p>
+<div class="flex items-center gap-2 mt-2">
+  <button (click)="diminuirQtd(item.produto.id, item.quantidade)" class="w-6 h-6 bg-surface-container rounded-full text-primary">-</button>
+  <span class="text-xs">{{item.quantidade}}</span>
+  <button (click)="aumentarQtd(item.produto.id, item.quantidade)" class="w-6 h-6 bg-surface-container rounded-full text-primary">+</button>
+  <button (click)="removerItem(item.produto.id)" class="ml-auto text-error text-xs hover:underline">Remover</button>
+</div>
+</div>
+<span class="font-price-display text-price-display text-primary">R$ {{(item.produto.preco * item.quantidade) | number:'1.2-2'}}</span>
+</div>
+
+</div>
+<div class="border-t border-outline-variant pt-lg space-y-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span>Subtotal</span>
+<span>R$ {{valorTotal | number:'1.2-2'}}</span>
+</div>
+<div class="flex justify-between items-center pt-md border-t border-outline-variant">
+<span class="font-headline-md text-headline-md">Total</span>
+<span class="font-display-lg text-headline-lg text-primary">R$ {{valorTotal | number:'1.2-2'}}</span>
+</div>
+</div>
+<button (click)="finalizarPedido()" [disabled]="itens.length === 0" class="w-full bg-primary text-on-primary py-md px-lg rounded-lg font-headline-md text-headline-md hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-95 organic-shadow disabled:opacity-50">
+                        Confirmar Pedido
+                    </button>
+<div class="flex items-center justify-center gap-xs text-outline text-xs mt-md">
+<span class="material-symbols-outlined text-sm">lock</span>
+                        Ambiente 100% Seguro
+                    </div>
+</div>
+</aside>
+</div>
+</main>

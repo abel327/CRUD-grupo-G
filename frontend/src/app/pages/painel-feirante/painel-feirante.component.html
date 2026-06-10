@@ -1,0 +1,234 @@
+<main class="flex-1 p-gutter md:p-xl overflow-hidden">
+<!-- Dashboard Overview -->
+<section class="mb-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Bom dia, Maria!</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Confira o desempenho da sua barraca hoje.</p>
+</div>
+<div class="flex gap-sm">
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline-variant/20 flex flex-col min-w-[140px]">
+<span class="text-[12px] text-on-surface-variant font-medium">Vendas Hoje</span>
+<span class="font-price-display text-price-display text-primary">R$ 1.240,00</span>
+<span class="text-[10px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> +12% vs ontem
+                            </span>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline-variant/20 flex flex-col min-w-[140px]">
+<span class="text-[12px] text-on-surface-variant font-medium">Pedidos</span>
+<span class="font-price-display text-price-display text-on-surface">18</span>
+<span class="text-[10px] text-outline">Meta: 25</span>
+</div>
+</div>
+</div>
+<!-- Sales Chart Mockup (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline-variant/20 min-h-[300px] flex flex-col">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface">Vendas (Hoje vs Ontem)</h3>
+<select class="bg-surface-container border-none text-on-surface-variant rounded-lg text-sm px-sm py-1">
+<option>Últimas 24h</option>
+<option>Semana</option>
+</select>
+</div>
+<div class="flex-1 flex items-end gap-2 px-2 relative">
+<!-- Simple Bar Chart Mockup -->
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[40%] transition-all hover:h-[45%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[30%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-[10px] px-2 py-1 rounded">08:00</div>
+</div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[60%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[50%]"></div>
+</div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[85%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[70%]"></div>
+</div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[45%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[65%]"></div>
+</div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[30%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[40%]"></div>
+</div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[95%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[80%]"></div>
+</div>
+<div class="flex-1 bg-primary-container/20 rounded-t-lg h-[20%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary rounded-t-lg h-[15%]"></div>
+</div>
+</div>
+<div class="flex justify-between mt-md px-2 text-[10px] text-on-surface-variant font-medium">
+<span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00</span><span>20:00</span>
+</div>
+</div>
+<div class="bg-primary p-lg rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] text-on-primary flex flex-col justify-between relative overflow-hidden">
+<!-- Decorative circle -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container rounded-full opacity-20"></div>
+<div>
+<span class="material-symbols-outlined text-4xl mb-md">local_shipping</span>
+<h3 class="font-headline-md text-headline-md mb-xs">Próxima Coleta</h3>
+<p class="font-body-md text-body-md opacity-80">Loggi Express chegará em aproximadamente:</p>
+</div>
+<div class="mt-lg">
+<span class="font-display-lg text-display-lg tracking-tighter">15 min</span>
+<p class="text-label-md mt-sm bg-on-primary/10 w-fit px-3 py-1 rounded-full">4 pedidos prontos</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Orders and Stock Management -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-xl">
+<!-- Pedidos Ativos -->
+<section>
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">pending_actions</span>
+                            Pedidos Ativos
+                        </h2>
+<button class="text-primary font-label-md text-label-md hover:underline">Ver todos</button>
+</div>
+<div class="space-y-md">
+<!-- Order Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 flex items-center justify-between hover:shadow-md transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold">#402</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">João da Silva</h4>
+<p class="text-xs text-on-surface-variant">3 itens • R$ 45,90</p>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<span class="px-3 py-1 bg-secondary-container/20 text-on-secondary-container text-xs font-bold rounded-full">PREPARANDO</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-xs hover:bg-primary-container transition-colors">CONCLUIR</button>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 flex items-center justify-between hover:shadow-md transition-all">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold">#405</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Ana Paula Oliveira</h4>
+<p class="text-xs text-on-surface-variant">7 itens • R$ 112,00</p>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-xs font-bold rounded-full">AGUARDANDO</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-xs hover:bg-primary-container transition-colors">PREPARAR</button>
+</div>
+</div>
+<!-- Order Card 3 (Ready) -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 flex items-center justify-between hover:shadow-md transition-all opacity-70">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary font-bold">#398</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Ricardo Mendes</h4>
+<p class="text-xs text-on-surface-variant">1 item • R$ 12,50</p>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span> PRONTO
+                                </span>
+<span class="text-[10px] text-on-surface-variant italic">Aguardando Coleta</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Gerenciar Estoque -->
+<section>
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">inventory</span>
+                            Gerenciar Estoque
+                        </h2>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-xs shadow-sm hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">add</span> Novo Item
+                        </button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden shadow-[0px_4px_20px_rgba(45,90,39,0.05)]">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant/20">
+<tr>
+<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Produto</th>
+<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Preço/Un</th>
+<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant">Status</th>
+<th class="px-md py-4 font-label-md text-label-md text-on-surface-variant text-right">Ação</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro shot of vibrant, crisp organic carrots still with their green leaves attached, resting on a rustic wooden table. The colors are bright orange and deep green, captured in high-key natural sunlight to emphasize freshness and artisanal quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUhIn1VGWHdCAsJ-GBRgtjhvQIWVD2K9He3s6-n_xLtgQQkJRXJDVmrE1FvATfn-Q0ObNV52sY852vjAdFupJB5mxoNclt4aG_fb7AzGQqC8kzHSlN4ZlgQZzppf1eCsV2CLxlAdlXS3dR9sCPR6uTAdou8sBklVDsh0rj48heVPMf7mLIUnoeP2-h5QU3MRzYUWyQFtqmkCfT90o7Dz9fjwpFHKKsTv3i-4jvKQGAndO0H-UoVYh_VNIfPzAsKpVx4QVM-7j4287n"/>
+</div>
+<span class="font-body-md text-body-md text-on-surface">Cenoura Orgânica</span>
+</div>
+</td>
+<td class="px-md py-md">
+<input class="w-20 bg-transparent border border-outline-variant/30 rounded px-1 py-0.5 text-sm font-price-display text-primary" type="text" value="R$ 5,90"/>
+</td>
+<td class="px-md py-md">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">edit</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up photograph of several ripe, perfectly red tomatoes clustered together, glistening with tiny droplets of fresh water. The image is bright and energetic, with deep red hues and soft shadows, conveying a sense of premium quality and local harvest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYPUKSTBUqlSPyZ0RXgKR541EHlSv9wz8Dj_795gt6J1sj-vTUNm7eeF1s7ErtShOwj0oxAo6jRjS9YHj4jMEFOPgfmfD9V7bnC6e20xunnjoSPU6i1b4XVxwxgFXqnYWBxujyOXA5XIjCZT6ng11fs_KMWZlKHm60sR9ZBHyJDqMAg7K5rlYIG8opONUTVcKO52rsPGYe0PdquZMrp9LSbvOPYVPcamW0vP7RUvVjNeBh9nzuRVclWxCtbrr6gprnbRx24zfljtos"/>
+</div>
+<span class="font-body-md text-body-md text-on-surface">Tomate Cereja</span>
+</div>
+</td>
+<td class="px-md py-md">
+<input class="w-20 bg-transparent border border-outline-variant/30 rounded px-1 py-0.5 text-sm font-price-display text-primary" type="text" value="R$ 8,50"/>
+</td>
+<td class="px-md py-md">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">edit</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors bg-error-container/5">
+<td class="px-md py-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high overflow-hidden opacity-50 grayscale">
+<img class="w-full h-full object-cover" data-alt="A bunch of fresh green kale leaves against a clean white background. The image is bright and professional, highlighting the texture and rich color of the healthy greens, though slightly dimmed to suggest it is currently out of stock in the UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaM4C09w-X_q5Y7FasVu-9U3t24k6zJTWI4UCT-Gg16nCO3qvipqv3LFwCWXEHr5CuV6KnEbWbIxe7y1rYa26dGNBT-tN-ABlQiK_pJNeAybnbQX1GGRnGfYHadGGqhqq6iRgVlCp5Znv7-499n2T8rGLFNGWT-HFoCy1TVt8vyVbb4RYE5cWE9FQaa9EFauLBwMo9nq3GS2Oe87l_nmm4VCOt0he_2x8oMGfk8Jj0L6Jx5VU3rgF0I5U44I0Lyhejos8tdCwjwCUx"/>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant italic">Couve Manteiga</span>
+</div>
+</td>
+<td class="px-md py-md">
+<input class="w-20 bg-transparent border border-outline-variant/30 rounded px-1 py-0.5 text-sm font-price-display text-outline" type="text" value="R$ 4,20"/>
+</td>
+<td class="px-md py-md">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="px-md py-md text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-md text-center">
+<button class="text-on-surface-variant font-label-md text-label-md flex items-center justify-center gap-xs mx-auto hover:text-primary transition-colors">
+<span class="material-symbols-outlined">expand_more</span> Mostrar mais produtos
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</main>

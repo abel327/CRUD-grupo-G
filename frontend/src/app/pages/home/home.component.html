@@ -1,0 +1,104 @@
+<main>
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-surface-container-low pt-xl pb-24 md:pt-24 md:pb-32 px-gutter">
+<div class="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-xl items-center relative z-10">
+<div class="space-y-lg">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight md:max-w-md">O melhor da feira, na sua casa</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm">Conectamos você aos melhores produtores locais para levar frescor e sabor direto para sua mesa.</p>
+<div class="relative max-w-lg mt-xl group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<input class="w-full pl-12 pr-6 py-4 bg-white border border-outline/20 rounded-xl shadow-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-body-md" placeholder="Procure por produtos ou feirantes..." type="text"/>
+<button class="absolute right-2 top-2 bottom-2 px-6 bg-primary text-on-primary rounded-lg font-label-md hover:brightness-110 active:scale-95 transition-all">Buscar</button>
+</div>
+</div>
+<div class="hidden md:block relative">
+<div class="organic-shape bg-primary-fixed-dim/30 absolute -inset-4 -z-10 animate-pulse"></div>
+<img alt="Frutas e vegetais frescos" class="rounded-3xl shadow-xl w-full h-[450px] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg1KNWevgO4TgADKDFhXf0Vhoh-iqjlB4lWOYZ7l359gmnJfZDr2GeotUJc35n2M3FKteCV2siHnnmJTOMHL2Xn5blsPjK2xbxgAjRPpJX0EGyC_Cxx64M4Fj_DjYBoHija1cAGFrCghw6Odrif0wV0_nFZvQ6TF2ZgVKa1lMsp1y2RrxlVaeSmrMbtdsDElbI9MjoPUgJfpsgFsfDzwcqSfqA9f1ut7eQLDlO9FNZptpsGbwxUu2FSPEz9CRyYS9m00qMIHuUL0JZ"/>
+</div>
+</div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-xl px-gutter">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary">Categorias</h2>
+<a class="text-primary font-label-md hover:underline" href="#">Ver todas</a>
+</div>
+<div class="flex overflow-x-auto gap-md no-scrollbar pb-4 -mx-gutter px-gutter md:mx-0 md:px-0">
+<button *ngFor="let cat of categorias" class="flex-none w-32 md:w-40 flex flex-col items-center gap-sm group">
+<div class="w-full aspect-square rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-fixed transition-colors overflow-hidden">
+<img [src]="cat.imageUrl" class="w-full h-full object-cover group-hover:scale-110 transition-transform"/>
+</div>
+<span class="font-label-md text-on-surface text-center">{{cat.nome}}</span>
+</button>
+</div>
+</div>
+</section>
+
+<!-- Ofertas do Dia -->
+<section class="py-xl px-gutter bg-surface-container-lowest">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex justify-between items-center mb-xl">
+<div class="flex items-center gap-md">
+<h2 class="font-headline-lg text-headline-lg text-primary">Ofertas do Dia</h2>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md">Limitado</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg">
+<div *ngFor="let p of ofertas" class="group bg-white rounded-xl shadow-[0px_4px_20px_rgba(45,90,39,0.05)] overflow-hidden hover:translate-y-[-8px] transition-all duration-300">
+<div class="relative aspect-[3/2] overflow-hidden cursor-pointer" [routerLink]="['/barraca', p.barraca?.id]">
+<img [src]="p.imageUrl" class="w-full h-full object-cover"/>
+<span class="absolute top-2 left-2 bg-secondary text-on-secondary px-2 py-1 rounded-lg font-label-md">Oferta</span>
+</div>
+<div class="p-md space-y-xs">
+<div class="flex items-center gap-xs cursor-pointer" [routerLink]="['/barraca', p.barraca?.id]">
+<div class="w-5 h-5 rounded-full overflow-hidden border border-primary/20 bg-surface-container"></div>
+<span class="text-xs text-on-surface-variant">{{p.barraca?.nome}}</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">{{p.nome}}</h3>
+<div class="flex justify-between items-center pt-md">
+<div class="flex flex-col">
+<span class="font-price-display text-price-display text-primary">R$ {{p.preco | number:'1.2-2'}}</span>
+<span class="text-xs text-outline">{{p.unidade}}</span>
+</div>
+<button [routerLink]="['/barraca', p.barraca?.id]" class="bg-secondary-container text-on-secondary-container p-3 rounded-xl hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Barracas em Destaque -->
+<section class="py-xl px-gutter mb-xl">
+<div class="max-w-[1280px] mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-xl">Barracas em Destaque</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div *ngFor="let b of barracas" [routerLink]="['/barraca', b.id]" class="cursor-pointer group flex bg-white rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(45,90,39,0.05)] border border-outline/5 hover:border-primary/20 transition-all">
+<div class="w-1/3 overflow-hidden">
+<img [src]="b.imageUrl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+</div>
+<div class="w-2/3 p-lg flex flex-col justify-center gap-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-primary">Verificado</span>
+</div>
+<h3 class="font-headline-md text-headline-md">{{b.nome}}</h3>
+<p class="text-on-surface-variant text-sm line-clamp-2">{{b.descricao}}</p>
+<div class="flex gap-md pt-sm">
+<div class="flex items-center gap-xs text-xs font-bold">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+{{b.avaliacao | number:'1.1-1'}}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
